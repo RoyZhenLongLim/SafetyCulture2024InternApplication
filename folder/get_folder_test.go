@@ -1,9 +1,10 @@
 package folder_test
 
 import (
+	"errors"
+	"github.com/georgechieng-sc/interns-2022/folder"
 	"testing"
 
-	"github.com/georgechieng-sc/interns-2022/folder"
 	"github.com/gofrs/uuid"
 	"github.com/stretchr/testify/assert"
 )
@@ -117,6 +118,7 @@ func Test_folder_GetAllChildFolders(t *testing.T) {
 		orgID    uuid.UUID
 		folders  []folder.Folder
 		want     []folder.Folder
+		err      error
 		_comment string
 	}{
 		{
@@ -232,8 +234,9 @@ func Test_folder_GetAllChildFolders(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt._comment, func(t *testing.T) {
 			f := folder.NewDriver(tt.folders)
-			get := f.GetAllChildFolders(tt.orgID, tt.name)
+			get, err := f.GetAllChildFolders(tt.orgID, tt.name)
 			assert.Equal(t, tt.want, get)
+			errors.Is(err, tt.err)
 		})
 	}
 }

@@ -29,8 +29,12 @@ func (f *driver) MoveFolder(name string, dst string) ([]Folder, error) {
 	}
 
 	// Determine whether dst is a child of name by creating a map containing all the children
-	children := f.GetAllChildFolders(orgSrc, name)
+	children, err := f.GetAllChildFolders(orgSrc, name)
 	childrenMap := map[string]struct{}{}
+
+	if err != nil {
+		return []Folder{}, errors.New("cannot get child directories for source")
+	}
 
 	for _, child := range children {
 		childrenMap[child.Name] = struct{}{}

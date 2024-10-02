@@ -22,7 +22,7 @@ func (f *driver) GetFoldersByOrgID(orgID uuid.UUID) []Folder {
 	return res
 }
 
-func (f *driver) GetAllChildFolders(orgID uuid.UUID, name string) []Folder {
+func (f *driver) GetAllChildFolders(orgID uuid.UUID, name string) ([]Folder, error) {
 	// Note for marker. We could alternatively use regex for this :)
 	// We can check that name followed by a dot , e.g. "steady-insect." exists in the string
 	// Both have tradeoffs, so I chose the simpler method to verify
@@ -54,7 +54,7 @@ func (f *driver) GetAllChildFolders(orgID uuid.UUID, name string) []Folder {
 		}
 	}
 
-	return res
+	return res, nil
 }
 
 func (f *driver) GetFolder(orgID uuid.UUID, name string) (Folder, error) {
