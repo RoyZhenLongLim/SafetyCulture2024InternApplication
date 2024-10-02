@@ -11,6 +11,11 @@ import (
 func Test_folder_MoveFolder(t *testing.T) {
 	t.Parallel()
 
+	/*
+		Ideally the test should be defined in another file
+		This is ok for small test, but I would spend more time re-working this to work with a test folder
+		For the interest of time and because I want to discuss more during the interview, I will leave this here
+	*/
 	testData := []folder.Folder{
 		{
 			Name:  "alpha",
