@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-
 	"github.com/georgechieng-sc/interns-2022/folder"
 	"github.com/gofrs/uuid"
 )
@@ -10,6 +9,7 @@ import (
 func main() {
 	orgID := uuid.FromStringOrNil(folder.DefaultOrgID)
 
+	// This bit of code fetches sample data that details a file system
 	res := folder.GetAllFolders()
 
 	// example usage
