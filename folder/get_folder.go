@@ -1,6 +1,7 @@
 package folder
 
 import (
+	"errors"
 	"github.com/gofrs/uuid"
 	"strings"
 )
@@ -18,9 +19,7 @@ func (f *driver) GetFoldersByOrgID(orgID uuid.UUID) []Folder {
 			res = append(res, f)
 		}
 	}
-
 	return res
-
 }
 
 func (f *driver) GetAllChildFolders(orgID uuid.UUID, name string) []Folder {
@@ -56,4 +55,17 @@ func (f *driver) GetAllChildFolders(orgID uuid.UUID, name string) []Folder {
 	}
 
 	return res
+}
+
+func (f *driver) GetFolder(orgID uuid.UUID, name string) (Folder, error) {
+	/*
+		Returns folder with name that belongs to org with orgId
+		Function should
+	*/
+	for _, f := range f.folders {
+		if f.Name == name && f.OrgId == orgID {
+			return f, nil
+		}
+	}
+	return Folder{}, errors.New("folder does not exists")
 }

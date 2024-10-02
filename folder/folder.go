@@ -17,17 +17,24 @@ type IDriver interface {
 }
 
 type driver struct {
-	// define attributes here
-	// data structure to store folders
-	// or preprocessed data
-
-	// example: feel free to change the data structure, if slice is not what you want
-	folders []Folder
+	dirToOrgMap map[string]uuid.UUID
+	folders     []Folder
 }
 
 func NewDriver(folders []Folder) IDriver {
+	dirToOrgMap := make(map[string]uuid.UUID)
+	/*
+		Create a map between folder name and which org the folder belongs to
+		This allows for us to quickly
+			- Check which org a folder belongs to
+			- check whether a folder exists
+	*/
+	for _, folder := range folders {
+		dirToOrgMap[folder.Name] = folder.OrgId
+	}
+
 	return &driver{
-		// initialize attributes here
-		folders: folders,
+		dirToOrgMap: dirToOrgMap,
+		folders:     folders,
 	}
 }
