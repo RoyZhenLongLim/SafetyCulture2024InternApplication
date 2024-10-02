@@ -29,6 +29,8 @@ const MaxDepth = 5
 // the default orgID that we will be using for testing
 const DefaultOrgID = "c1556e17-b7c0-45a3-a6ae-9546248fb17a"
 
+const InvalidOrgID = "Invalid Org Id"
+
 type Folder struct {
 	Name  string    `json:"name"`
 	OrgId uuid.UUID `json:"org_id"`

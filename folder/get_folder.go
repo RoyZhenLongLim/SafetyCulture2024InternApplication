@@ -34,6 +34,7 @@ func (f *driver) GetAllChildFolders(orgID uuid.UUID, name string) []Folder {
 	res := []Folder{}
 	for _, f := range f.GetFoldersByOrgID(orgID) {
 		// If this is child folder of name, append to list
+		// File path must be in the format name1.name2.name3 etc
 		pathNames := strings.Split(f.Paths, ".")
 
 		/*
