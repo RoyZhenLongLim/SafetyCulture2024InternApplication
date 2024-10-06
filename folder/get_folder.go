@@ -22,12 +22,14 @@ func (f *driver) GetFoldersByOrgID(orgID uuid.UUID) []Folder {
 	return res
 }
 
-func (f *driver) GetAllChildFolders(orgID uuid.UUID, name string) ([]Folder, error) {
-	// Note for marker. We could alternatively use regex for this :)
-	// We can check that name followed by a dot , e.g. "steady-insect." exists in the string
-	// Both have tradeoffs, so I chose the simpler method to verify
-	// I suspect this method is slower but easier to maintain and improve,
-	// which I believe is far more important for a product that is continuously updated
+func (f *driver) GetAllChildFolders(orgID uuid.UUID, name string) []Folder {
+	/*
+		If folder doesn't exist or has incorrect orgID, then return empty array with error
+	*/
+	org, exist := f.dirToOrgMap[name]
+	if !exist || org != orgID {
+		return []Folder{}
+	}
 
 	// Get all folders with specific org id
 	res := []Folder{}
@@ -35,7 +37,6 @@ func (f *driver) GetAllChildFolders(orgID uuid.UUID, name string) ([]Folder, err
 		// If this is child folder of name, append to list
 		// File path must be in the format name1.name2.name3 etc
 		pathNames := strings.Split(f.Paths, ".")
-
 		/*
 			To check if this is a valid child directory, we need to check the following
 				- orgID must match input orgID
@@ -54,7 +55,7 @@ func (f *driver) GetAllChildFolders(orgID uuid.UUID, name string) ([]Folder, err
 		}
 	}
 
-	return res, nil
+	return res
 }
 
 func (f *driver) GetFolder(orgID uuid.UUID, name string) (Folder, error) {

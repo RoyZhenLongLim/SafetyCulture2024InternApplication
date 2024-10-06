@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-	//orgID := uuid.FromStringOrNil(folder.DefaultOrgID)
+	orgID := uuid.FromStringOrNil(folder.DefaultOrgID)
 
 	res := []folder.Folder{
 		{
@@ -47,18 +47,18 @@ func main() {
 		},
 	}
 	// This bit of code fetches sample data that details a file system
-	// res := folder.GetAllFolders()
+	//res := folder.GetAllFolders()
 
 	// example usage
 	folderDriver := folder.NewDriver(res)
-	//orgFolder := folderDriver.GetFoldersByOrgID(orgID)
+	orgFolder := folderDriver.GetFoldersByOrgID(orgID)
 	//childFolder := folderDriver.GetAllChildFolders(orgID, "noble-vixen")
 
-	//folder.PrettyPrint(res)
-	after, err := folderDriver.MoveFolder("delta", "charlie")
-	folder.PrettyPrint(after)
-	fmt.Println(err)
-	//fmt.Printf("\n Folders for orgID: %s", orgID)
-	//folder.PrettyPrint(orgFolder)
+	folder.PrettyPrint(res)
+	//after, err := folderDriver.MoveFolder("delta", "charlie")
+	//folder.PrettyPrint(after)
+	//fmt.Println(err)
+	fmt.Printf("\n Folders for orgID: %s", orgID)
+	folder.PrettyPrint(orgFolder)
 	//folder.PrettyPrint(childFolder)
 }
